@@ -11,35 +11,35 @@ pipeline {
                 checkout scm
             }
         }
-        // stage("Local Env") {
-        //     agent {
-        //         docker {
-        //             image "composer"
-        //         }
-        //     }
-        //     steps {
-        //         sh '''
-        //             #!/bin/bash
-        //             composer install
-        //             cp .env.example .env
-        //             php artisan key:generate
-        //         '''
-        //     }
-        // }
-        // stage("Laradock Env") {
-        //     steps {
-        //         dir("laradock") {
-        //             sh '''
-        //                 #!/bin/bash
-        //                 cp env-example .env
-        //             '''
-        //         }
-        //     }
-        // }
-        // stage("Deploy") {
-        //     steps {
-        //         sh "ssh -p 22 root@172.17.0.1 'cd ${WORKSPACE} && docker ps' "
-        //     }
-        // }
+        stage("Local Env") {
+            agent {
+                docker {
+                    image "composer"
+                }
+            }
+            steps {
+                sh '''
+                    #!/bin/bash
+                    composer install
+                    cp .env.example .env
+                    php artisan key:generate
+                '''
+            }
+        }
+        stage("Laradock Env") {
+            steps {
+                dir("laradock") {
+                    sh '''
+                        #!/bin/bash
+                        cp env-example .env
+                    '''
+                }
+            }
+        }
+        stage("Deploy") {
+            steps {
+                sh "ssh -p 22 root@172.17.0.1 'cd ${WORKSPACE} && docker ps' "
+            }
+        }
     }
 }
