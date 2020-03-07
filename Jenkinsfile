@@ -13,7 +13,7 @@ pipeline {
         }
         stage("1") {
             steps {
-                sh "ssh -p 22 root@172.17.0.1 'mkdir -p tt_ayam && cd ${WORKSPACE} && cp -avr $HOME/${WORKSPACE} $HOME/tt_ayam' "
+                sh "ssh -p 22 root@172.17.0.1 'mkdir -p ~/tt_ayam && cd ${WORKSPACE} && cp ~/${WORKSPACE}/. ~/tt_ayam' "
             }
         }
         // stage("Local Env") {
