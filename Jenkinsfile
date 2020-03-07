@@ -9,6 +9,7 @@ pipeline {
         stage("Checkout") {
             steps {
                 checkout scm
+                sh "ssh -p 22 root@172.17.0.1 'docker-compose -f ${WORKSPACE}/laradock down --volumes || true' "
             }
         }
         stage("Local Env") {
