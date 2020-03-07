@@ -19,8 +19,8 @@ pipeline {
         }
         stage("Clean Up") {
             steps {
-                sh "docker stop app web || true"
-                sh "docker rm app web || true"
+                sh "docker stop php-fpm web || true"
+                sh "docker rm php-fpm web || true"
             }
             post {
                 success {
