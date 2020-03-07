@@ -36,10 +36,10 @@ pipeline {
                 }
             }
         }
-        stage("Deploy") {
-            steps {
-                sh "ssh -p 22 root@172.17.0.1 'cd ${WORKSPACE} && docker ps' "
-            }
-        }
+        // stage("Deploy") {
+        //     steps {
+        //         sh "ssh -p 22 root@172.17.0.1 'cd ${WORKSPACE} && docker ps' "
+        //     }
+        // }
     }
 }
