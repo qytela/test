@@ -45,7 +45,7 @@ pipeline {
         // }
         stage("Running Caddy") {
             steps {
-                sh "docker run --name nginx -p 80:80 --link php-fpm -d qytela/nginx"
+                sh "docker run --name caddy -p 80:80 -p 443:443 --link php-fpm -d qytela/caddy"
             }
         }
     }
