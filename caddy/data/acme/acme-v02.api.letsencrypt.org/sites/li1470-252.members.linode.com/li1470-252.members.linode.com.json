@@ -1,0 +1,5 @@
+{
+	"domain": "li1470-252.members.linode.com",
+	"certUrl": "https://acme-v02.api.letsencrypt.org/acme/cert/037bc08e6bd7f7473f59b96923eac564b1a1",
+	"certStableUrl": "https://acme-v02.api.letsencrypt.org/acme/cert/037bc08e6bd7f7473f59b96923eac564b1a1"
+}

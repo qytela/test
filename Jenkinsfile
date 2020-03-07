@@ -12,15 +12,20 @@ pipeline {
                 sh "docker build -f ./app.Dockerfile -t qytela/app ."
             }
         }
-        stage("Build Web") {
+        stage("Build Nginx") {
             steps {
-                sh "docker build -f ./web.Dockerfile -t qytela/web ."
+                sh "docker build -f ./nginx.Dockerfile -t qytela/nginx ."
+            }
+        }
+        stage("Build Caddy") {
+            steps {
+                sh "docker build -f ./caddy.Dockerfile -t qytela/caddy ."
             }
         }
         stage("Clean Up") {
             steps {
-                sh "docker stop php-fpm web || true"
-                sh "docker rm php-fpm web || true"
+                sh "docker stop php-fpm nginx caddy || true"
+                sh "docker rm php-fpm nginx caddy || true"
             }
             post {
                 success {
@@ -33,9 +38,14 @@ pipeline {
                 sh "docker run --name php-fpm -d qytela/app"
             }
         }
-        stage("Running Web") {
+        // stage("Running Nginx") {
+        //     steps {
+        //         sh "docker run --name nginx -p 80:80 --link php-fpm -d qytela/nginx"
+        //     }
+        // }
+        stage("Running Caddy") {
             steps {
-                sh "docker run --name web -p 80:80 --link php-fpm -d qytela/web"
+                sh "docker run --name nginx -p 80:80 --link php-fpm -d qytela/nginx"
             }
         }
     }

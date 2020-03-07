@@ -1,0 +1,12 @@
+{
+	"Email": "acc.talentindonesia@gmail.com",
+	"Registration": {
+		"body": {
+			"status": "valid",
+			"contact": [
+				"mailto:acc.talentindonesia@gmail.com"
+			]
+		},
+		"uri": "https://acme-v02.api.letsencrypt.org/acme/acct/79898622"
+	}
+}
