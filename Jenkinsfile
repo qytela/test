@@ -6,6 +6,11 @@ pipeline {
     }
 
     stages {
+        stage("Checkout") {
+            steps {
+                checkout scm
+            }
+        }
         stage("Local Env") {
             agent {
                 docker {
