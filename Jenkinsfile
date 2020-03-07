@@ -9,7 +9,6 @@ pipeline {
         stage("Checkout") {
             steps {
                 checkout scm
-                sh "ssh -p 22 root@172.17.0.1 'cd ${WORKSPACE}/laradock && docker-compose -f docker-compose.yml down --volumes || true' "
             }
         }
         stage("Local Env") {
@@ -29,7 +28,7 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                sh "ssh -p 22 root@172.17.0.1 'cd ${WORKSPACE}/laradock && docker-compose -f docker-compose.yml up -d caddy' "
+                sh "ssh -p 22 root@172.17.0.1 'cd ${WORKSPACE}/laradock && docker-compose -f docker-compose.yml down --volumes && docker-compose -f docker-compose.yml up -d caddy' "
             }
             post {
                 always {
