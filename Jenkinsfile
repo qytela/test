@@ -18,12 +18,6 @@ pipeline {
                     cp .env.example .env && \
                     php artisan key:generate
                 '"
-                sh '''
-                    #!/bin/bash
-                    composer install
-                    cp .env.example .env
-                    php artisan key:generate
-                '''
             }
         }
         stage("Laradock Env") {
