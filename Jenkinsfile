@@ -1,45 +1,42 @@
 pipeline {
     agent any
 
-    environment {
-        WORKSPACE = "jenkins_home/workspace/test_master"
-    }
-
     stages {
         stage("Checkout") {
             steps {
                 checkout scm
             }
         }
-        stage("1") {
+        stage("Build App") {
             steps {
-                sh "ssh -p 22 root@172.17.0.1 'mkdir -p ~/tt_ayam && cd ${WORKSPACE} && cp ~/${WORKSPACE}/. ~/tt_ayam' "
+                sh "docker build -f ./app.Dockerfile -t qytela/app ."
             }
         }
-        // stage("Local Env") {
-        //     steps {
-        //         sh "ssh -p 22 root@172.17.0.1 'cd ${WORKSPACE} && composer install && cp .env.example .env && php artisan key:generate' "
-        //     }
-        // }
-        // stage("Laradock Env") {
-        //     steps {
-        //         dir("laradock") {
-        //             sh '''
-        //                 #!/bin/bash
-        //                 cp env-example .env
-        //             '''
-        //         }
-        //     }
-        // }
-        // stage("Deploy") {
-        //     steps {
-        //         sh "ssh -p 22 root@172.17.0.1 'cd ${WORKSPACE}/laradock && docker-compose -f docker-compose.yml down --volumes && docker-compose -f docker-compose.yml up -d caddy' "
-        //     }
-        //     post {
-        //         always {
-        //             cleanWs()
-        //         }
-        //     }
-        // }
+        stage("Build Web") {
+            steps {
+                sh "docker build -f ./web.Dockerfile -t qytela/web ."
+            }
+        }
+        stage("Clean Up") {
+            steps {
+                sh "docker stop app web || true"
+                sh "docker rm app web || true"
+            }
+            post {
+                success {
+                    echo "Clean Up OK"
+                }
+            }
+        }
+        stage("Running App") {
+            steps {
+                sh "docker run --name php-fpm -d qytela/app"
+            }
+        }
+        stage("Running Web") {
+            steps {
+                sh "docker run --name web -p 80:80 --link php-fpm -d qytela/web"
+            }
+        }
     }
 }
