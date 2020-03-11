@@ -24,8 +24,8 @@ pipeline {
         }
         stage("Clean Up") {
             steps {
-                sh "docker stop php-fpm nginx caddy || true"
-                sh "docker rm php-fpm nginx caddy || true"
+                sh "docker stop php-fpm || true"
+                sh "docker rm php-fpm || true"
             }
             post {
                 success {
