@@ -64,9 +64,10 @@ pipeline {
                 checkout scm
             }
         }
-        stage("Git Clone or Pull") {
+        stage("Git Pull") {
             steps {
-                sh "${SSH} 'git clone https://github.com/qytela/test.git test2' "
+                sh "${SSH} 'cd test2 && \
+                git pull origin master' "
             }
         }
         stage("Local Env") {
