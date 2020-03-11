@@ -71,7 +71,8 @@ pipeline {
         }
         stage("Local Env") {
             steps {
-                sh "${SSH} 'cd test2 && cp .env.example .env && \
+                sh "${SSH} 'cd test2 && \
+                cp .env.example .env && \
                 composer install && \
                 php artisan key:generate && \
                 chmod -R 777 storage bootstrap/cache' "
