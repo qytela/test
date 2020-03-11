@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel with Jenkins and Docker by Fansa & Evan & Daniel & Dewi
+                   Talent Indonesia by Fansa & Evan & Daniel & Dewi
                 </div>
 
                 <div class="links">
