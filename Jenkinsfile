@@ -71,17 +71,22 @@ pipeline {
         }
         stage("Local Env") {
             steps {
-                sh "${SSH} 'cd test2 && cp .env.example .env && composer install && chmod -R 777 storage bootstrap/cache' "
+                sh "${SSH} 'cd test2 && cp .env.example .env && \
+                composer install && \
+                php artisan key:generate && \
+                chmod -R 777 storage bootstrap/cache' "
             }
         }
         stage("Laradock Env") {
             steps {
-                sh "${SSH} 'cd test2/laradock && cp env-example .env' "
+                sh "${SSH} 'cd test2/laradock && \
+                cp env-example .env' "
             }
         }
         stage("Running App") {
             steps {
-                sh "${SSH} 'cd test2/laradock && docker-compose up -d --build caddy mysql phpmyadmin' "
+                sh "${SSH} 'cd test2/laradock && \
+                docker-compose up -d --build caddy mysql phpmyadmin' "
             }
         }
     }
