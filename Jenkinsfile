@@ -75,7 +75,7 @@ pipeline {
                 sh "${SSH} 'cd test2 && \
                 cp .env.example .env && \
                 export DB_CONNECTION=mysql && \
-                export DB_HOST=laradock_mysql_1
+                export DB_HOST=laradock_mysql_1 && \
                 export DB_PORT=3306 && \
                 export DB_DATABASE=laravel && \
                 export DB_USERNAME=root && \
