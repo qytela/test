@@ -74,6 +74,14 @@ pipeline {
             steps {
                 sh "${SSH} 'cd test2 && \
                 cp .env.example .env && \
+
+                export DB_CONNECTION=mysql && \
+                export DB_HOST=laradock_mysql_1
+                export DB_PORT=3306 && \
+                export DB_DATABASE=laravel && \
+                export DB_USERNAME=root && \
+                export DB_PASSWORD=root && \
+
                 composer install && \
                 php artisan key:generate && \
                 chmod -R 777 storage bootstrap/cache' "
@@ -82,7 +90,8 @@ pipeline {
         stage("Laradock Env") {
             steps {
                 sh "${SSH} 'cd test2/laradock && \
-                cp env-example .env' "
+                cp env-example .env && \
+                export PMA_PORT=8091' "
             }
         }
         stage("Running App") {
