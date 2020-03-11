@@ -88,8 +88,7 @@ pipeline {
         stage("Laradock Env") {
             steps {
                 sh "${SSH} 'cd test2/laradock && \
-                cp env-example .env && \
-                export PMA_PORT=8091' "
+                cp env-example .env' "
             }
         }
         stage("Running App") {
