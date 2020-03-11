@@ -22,21 +22,30 @@ pipeline {
         //         sh "docker build -f ./caddy.Dockerfile -t qytela/caddy ."
         //     }
         // }
-        stage("Clean Up") {
+        stage("Stopping") {
             steps {
                 sh "docker stop php-fpm || true"
                 sh "docker rm php-fpm || true"
-                sh "docker rmi qytela/app"
             }
             post {
                 success {
-                    echo "Clean Up OK"
+                    echo "Stopping OK"
                 }
             }
         }
         stage("Running App") {
             steps {
                 sh "docker run --name php-fpm -d qytela/app"
+            }
+        }
+        stage("Clean Up") {
+            steps {
+                sh "docker rmi qytela/app"
+            }
+            post {
+                success {
+                    echo "Clean Up OK"
+                }
             }
         }
         // stage("Running Nginx") {
