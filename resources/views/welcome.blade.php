@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel with  and Docker
+                    Laravel with Jenkins and Docker
                 </div>
 
                 <div class="links">
